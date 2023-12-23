@@ -1,0 +1,61 @@
+/* StepperForm.css */
+
+.stepper-form {
+  background-color: #fff;
+}
+
+.step {
+  display: none;
+  margin: 6vh auto 0 auto;
+  padding: 20px 25px;
+  justify-content: center;
+  border-radius: 15px;
+}
+
+.step.active {
+  display: flex;
+  flex-direction: column;
+}
+
+.button-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 2vw;
+}
+
+
+
+.button-container button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+
+.progress-container {
+    margin-top: 20px;
+    width: 17vw;
+  }
+  
+  .progress-bar {
+    height: 10px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .progress-bar-inner {
+    height: 100%;
+    background-color: #007bff;
+    transition: width 0.3s ease-in-out;
+  }
+  
+
+  .label-text{
+    line-height: 3rem !important;
+  }
+
+
+  .input-bordered{
+    border: 2px solid #0000001f;
+  }
