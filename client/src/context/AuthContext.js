@@ -252,6 +252,68 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  let registerOwner = async (e) => {
+    e.preventDefault();
+    const credentials = new FormData(e.currentTarget);
+
+    try {
+      const response = await axiosInstance.post(
+        "http://localhost:8080/owner/signup",
+        {
+          email: credentials.get("email"),
+          password: credentials.get("password"),
+          confirmPassword: credentials.get("confirm-password"),
+        }
+      );
+
+      if (response.status === 200) {
+        navigate("/owner/login");
+        toast.success("Registered Successfully!", {
+          style: {
+            borderRadius: "55px",
+            marginBottom: "15px",
+          },
+        });
+      }
+    } catch (error) {
+      if (error.response) {
+        if (error.response.status === 409) {
+          toast.error("Email already exists. Please use a different email.", {
+            icon: "😓",
+            style: {
+              borderRadius: "55px",
+              marginBottom: "15px",
+            },
+          });
+        } else if (error.response.status === 400) {
+          toast.error("Passwords do not match", {
+            icon: "😓",
+            style: {
+              borderRadius: "55px",
+              marginBottom: "15px",
+            },
+          });
+        } else {
+          toast.error("Something went wrong!", {
+            icon: "🪐",
+            style: {
+              borderRadius: "55px",
+              marginBottom: "15px",
+            },
+          });
+        }
+      } else {
+        toast.error("Something went wrong!", {
+          icon: "🪐",
+          style: {
+            borderRadius: "55px",
+            marginBottom: "15px",
+          },
+        });
+      }
+    }
+  };
+
   // handle logout
   let logoutUser = async () => {
     setAuthTokens(null);
@@ -282,6 +344,7 @@ const AuthProvider = ({ children }) => {
     loginUser: loginUser,
     logoutUser: logoutUser,
     registerUser: registerUser,
+    registerOwner: registerOwner,
     profile: profile,
     loginOwner: loginOwner,
     logoutOwner: logoutOwner,

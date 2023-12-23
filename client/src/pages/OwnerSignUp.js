@@ -5,7 +5,7 @@ import AuthContext from "../context/AuthContext";
 import { Link } from "react-router-dom";
 
 export default function SignUp() {
-  let { registerUser } = useContext(AuthContext);
+  let { registerOwner } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,7 +29,7 @@ export default function SignUp() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8080/signup", {
+      .post("http://localhost:8080/", {
         email,
         password,
         confirmPassword,
@@ -66,7 +66,7 @@ export default function SignUp() {
             </div>
             <div className="mt-5">
               {/* Form */}
-              <form role="form" onSubmit={registerUser}>
+              <form role="form" onSubmit={registerOwner}>
                 <div className="grid gap-y-4">
                   {/* Form Group */}
                   <div>

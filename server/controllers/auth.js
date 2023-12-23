@@ -190,30 +190,68 @@ exports.postOwnerSignup = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
   const confirmPassword = req.body.confirmPassword;
+  let token;
+  if (!email || !password || !confirmPassword) {
+    return res
+      .status(400)
+      .json({ error: "Email, password, or confirmPassword is missing." });
+  }
+
+  if (password !== confirmPassword) {
+    return res.status(400).json({ error: "Passwords do not match." });
+  }
 
   Owner.findOne({ email: email })
     .then((userDoc) => {
       if (userDoc) {
-        req.flash("error", "Email already exist.");
-        return res.redirect("/owner/signup");
+        return res.status(409).json({ error: "Email already exists." });
       }
-      return bcrypt
-        .hash(password, 12)
-        .then((hashedPassword) => {
-          const user = new Owner({
-            email: email,
-            password: hashedPassword,
-          });
-          return user.save();
-        })
-        .then((result) => {
-          res.redirect("/owner/login");
+      // Proceed with user creation if the email doesn't exist
+      return bcrypt.hash(password, 12).then((hashedPassword) => {
+        const user = new Owner({
+          email: email,
+          password: hashedPassword,
         });
+
+        return user.save().then(() => {
+          const token = createToken(user._id);
+          res.status(200).json({ message: "Sign Up successfully", token });
+        });
+      });
     })
     .catch((err) => {
-      console.log(err);
+      res.status(500).json({ error: err.message });
+      console.error(err);
     });
 };
+// exports.postOwnerSignup = (req, res, next) => {
+//   const email = req.body.email;
+//   const password = req.body.password;
+//   const confirmPassword = req.body.confirmPassword;
+
+//   Owner.findOne({ email: email })
+//     .then((userDoc) => {
+//       if (userDoc) {
+//         req.flash("error", "Email already exist.");
+//         return res.redirect("/owner/signup");
+//       }
+//       return bcrypt
+//         .hash(password, 12)
+//         .then((hashedPassword) => {
+//           const user = new Owner({
+//             email: email,
+//             password: hashedPassword,
+//           });
+//           return user.save();
+//         })
+//         .then((result) => {
+//           res.redirect("/owner/login");
+//         });
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };
 
 const transporter = nodemailer.createTransport({
   service: "Gmail",

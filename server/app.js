@@ -15,7 +15,7 @@ const app = express();
 app.use(cors());
 
 const MONGOURL =
-  "mongodb+srv://fahadnoor039:nvckyhp6MaNygMm2@cluster0.sbiqd2o.mongodb.net/fyp";
+  "mongodb+srv://fahadakz691:ZQRhdvCr4yqX46RS@cluster0.hmsn46c.mongodb.net/fyp";
 
 const store = new MongoDBStore({
   uri: MONGOURL,
