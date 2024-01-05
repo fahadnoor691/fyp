@@ -53,6 +53,8 @@ exports.bookCar = async (req, res) => {
     });
 
     // Save the new booking
+    carExists.status = true;
+    carExists.save();
     await newBooking.save();
     console.log("Car Booked Successfully");
     return res

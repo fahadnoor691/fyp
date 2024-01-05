@@ -47,7 +47,11 @@ const carSchema = new Schema({
     type: String,
     required: false,
   },
-
+  status: {
+    type: Boolean,
+    default: false,
+    required: false,
+  },
   // ownerId: {
   //   type: Schema.Types.ObjectId, // Change the type to ObjectId
   //   ref: "owner", // Reference the 'owner' collection

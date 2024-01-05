@@ -200,6 +200,10 @@ const AuthProvider = ({ children }) => {
         {
           email: credentials.get("email"),
           password: credentials.get("password"),
+          name: credentials.get("name"),
+          cnic: credentials.get("cnic"),
+          number: credentials.get("number"),
+          city: credentials.get("city"),
           confirmPassword: credentials.get("confirm-password"),
         }
       );

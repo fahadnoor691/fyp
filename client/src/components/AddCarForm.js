@@ -1,14 +1,14 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { Formik, Form, ErrorMessage } from "formik";
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, Navigate, Redirect, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 
 const AddCarForm = () => {
   let { user } = useContext(AuthContext);
 
   const navigate = useNavigate();
-  const [files, setFiles] = useState([]);
   const [data, setData] = useState({
     brand: "",
     name: "",
@@ -18,7 +18,7 @@ const AddCarForm = () => {
     mileage: "",
     seats: "",
     carType: "",
-    images: [],
+    image: "",
     location: "",
     ownerId: user._id,
   });
@@ -31,82 +31,44 @@ const AddCarForm = () => {
     });
   };
 
-  const handleFileChange = (event, index) => {
-    const updatedFiles = [...files];
-    updatedFiles[index] = event.target.files[0];
-    setFiles(updatedFiles);
+  const handleSubmit = (values) => {
+    axios
+      .post("http://localhost:8080/owner/add-car", data) // Directly sending 'data' object here
+      .then((res) => {
+        toast.success("Car Added successfully:");
+        console.log(res);
+      })
+      .catch((err) => {
+        toast.error("Error in adding car");
+        console.log(err);
+      });
+    // Handle form submission logic here
+    console.log(values);
+    navigate(-1);
   };
 
-  const addFileInput = () => {
-    setFiles([...files, null]);
-  };
-
-  const removeFileInput = (index) => {
-    const updatedFiles = [...files];
-    updatedFiles.splice(index, 1);
-    setFiles(updatedFiles);
-  };
-
-  const handleFileUpload = async () => {
+  const [files, setFiles] = useState("");
+  const handleFileUpload = async (e) => {
     const formData = new FormData();
-    files.forEach((file) => {
-      if (file) {
-        formData.append("files", file);
-      }
-    });
+    // files.forEach((file) => {
+    formData.append("files", e.target.files[0]);
+    // });
 
     try {
       const res = await axios.post("http://localhost:8080/upload", formData);
-      const uploadedImages = res.data.map((image) => image.filePath);
-      setData({
-        ...data,
-        images: [...data.images, ...uploadedImages],
-      });
-      setFiles([]);
+      // const uploadedImages = res.data.map((image) => image.filePath);
+      // setData({
+      //   ...data,
+      //   images: [...data.images, ...uploadedImages],
+      // });
+      // setFiles([]);
       toast.success("Files Uploaded Successfully!");
     } catch (err) {
       toast.error("Error in uploading files");
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await handleFileUpload();
-    try {
-      await axios.post("http://localhost:8080/owner/add-car", data);
-      toast.success("Car Added successfully:");
-      navigate(-1);
-    } catch (err) {
-      toast.error("Error in adding car");
-      console.log(err);
-    }
-  };
-
   return (
-    // <div className="max-w-md mx-auto">
-    //   <h2 className="text-3xl font-bold text-center mb-6">Add a Car</h2>
-    //   {/* ...other input fields */}
-    //   <div>
-    //     <div className="mb-4">
-    //       <label
-    //         htmlFor="image"
-    //         className="block text-gray-700 text-sm font-semibold mb-2"
-    //       >
-    //         Images
-    //       </label>
-    //       {files.map((file, index) => (
-    //         <div key={index}>
-    //           <input type="file" onChange={(e) => handleFileChange(e, index)} />
-    //           <button onClick={() => removeFileInput(index)}>Remove</button>
-    //         </div>
-    //       ))}
-    //       <button onClick={addFileInput}>Add More</button>
-    //     </div>
-    //     {/* ...rest of the code remains the same */}
-    //   </div>
-    //   {/* ...rest of the code remains the same */}
-    // </div>
-
     <div className="max-w-md mx-auto">
       <h2 className="text-3xl font-bold text-center mb-6">Add a Car</h2>
       <div className="mb-4">
@@ -117,6 +79,7 @@ const AddCarForm = () => {
           Brand
         </label>
         <input
+          className="input input-bordered w-full max-w-xs"
           type="text"
           id="brand"
           name="brand"
@@ -132,6 +95,7 @@ const AddCarForm = () => {
           Name
         </label>
         <input
+          className="input input-bordered w-full max-w-xs"
           type="text"
           id="name"
           name="name"
@@ -148,6 +112,7 @@ const AddCarForm = () => {
           Model
         </label>
         <input
+          className="input input-bordered w-full max-w-xs"
           type="text"
           id="model"
           name="model"
@@ -164,6 +129,7 @@ const AddCarForm = () => {
           Price
         </label>
         <input
+          className="input input-bordered w-full max-w-xs"
           type="text"
           id="price"
           name="price"
@@ -196,6 +162,7 @@ const AddCarForm = () => {
           Mileage
         </label>
         <input
+          className="input input-bordered w-full max-w-xs"
           type="text"
           id="mileage"
           name="mileage"
@@ -212,6 +179,7 @@ const AddCarForm = () => {
           Seats
         </label>
         <input
+          className="input input-bordered w-full max-w-xs"
           type="text"
           id="seats"
           name="seats"
@@ -228,6 +196,7 @@ const AddCarForm = () => {
           Car Type
         </label>
         <input
+          className="input input-bordered w-full max-w-xs"
           type="text"
           id="carType"
           name="carType"
@@ -238,18 +207,18 @@ const AddCarForm = () => {
 
       <div className="mb-4">
         <label
-          htmlFor="image"
+          htmlFor="name"
           className="block text-gray-700 text-sm font-semibold mb-2"
         >
-          Images
+          Image
         </label>
-        {files.map((file, index) => (
-          <div key={index}>
-            <input type="file" onChange={(e) => handleFileChange(e, index)} />
-            <button onClick={() => removeFileInput(index)}>Remove</button>
-          </div>
-        ))}
-        <button onClick={addFileInput}>Add More</button>
+        <input
+          type="text"
+          onChange={handleChange}
+          id="image"
+          name="image"
+          className="input input-bordered w-full max-w-xs"
+        />
       </div>
 
       <div className="mb-4">
@@ -260,6 +229,7 @@ const AddCarForm = () => {
           location
         </label>
         <input
+          className="input input-bordered w-full max-w-xs"
           type="text"
           id="location"
           name="location"
@@ -268,7 +238,6 @@ const AddCarForm = () => {
         />
       </div>
 
-      {/* Repeat similar pattern for other input fields */}
       <div className="flex justify-center">
         <button
           className="btn btn-warning btn-block"

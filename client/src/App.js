@@ -22,6 +22,7 @@ import OwnerSignUp from "./pages/OwnerSignUp";
 import ChangePassword from "./pages/ChangePassword";
 import UpdatePassword from "./pages/UpdatePassword";
 import Booking from "./pages/Bookings";
+import Payments from "./pages/PaymentForm";
 
 import Admin from "./pages/AdminPage";
 
@@ -48,6 +49,7 @@ function App() {
               <Route path="/owner/manage-cars" element={<OwnerCars />} />
               <Route path="/edit-car/:id" element={<EditCar />} />
               <Route path="/car-description/:id" element={<CarDetail />} />
+              <Route path="/payment" element={<Payments />} />
             </Route>
 
             <Route path="*" element={<Navigate to="/" />} />

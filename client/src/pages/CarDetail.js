@@ -86,12 +86,12 @@ const ProductDetail = () => {
         carTransmission: carData.transmission,
         carSeats: carData.seats,
         carPrice: carData.price,
+        status: true,
       })
       .then((res) => {
         if (res.status === 201) {
-          toast.success("Your car has been successfully booked!");
           setTimeout(() => {
-            navigate("/home");
+            navigate("/payment");
           }, 3000);
         } else if (res.status === 405) {
           toast.error("Car Already Booked!");
@@ -210,7 +210,6 @@ const ProductDetail = () => {
               className="flex h-12 w-1/3 items-center justify-center bg-amber-400 duration-100 hover:bg-yellow-300"
               onClick={handleBooking}
             >
-              {/* <AiOutlineHeart className="mx-2" /> */}
               Booking
             </button>
           </div>

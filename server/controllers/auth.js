@@ -87,6 +87,10 @@ exports.postSignup = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
   const confirmPassword = req.body.confirmPassword;
+  const name = req.body.name;
+  const cnic = req.body.cnic;
+  const number = req.body.number;
+  const city = req.body.city;
   let token;
   if (!email || !password || !confirmPassword) {
     return res
@@ -108,6 +112,11 @@ exports.postSignup = (req, res, next) => {
         const user = new User({
           email: email,
           password: hashedPassword,
+          name: name,
+          cnic: cnic,
+          phone_number: number,
+          city: city,
+
           booking: { items: [] },
         });
 

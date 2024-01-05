@@ -3,7 +3,7 @@ import "flatpickr/dist/flatpickr.min.css";
 import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/airbnb.css"; // Example: Using Airbnb theme, you can change it as needed
 
-const CarSearchForm = () => {
+const CarSearchForm = ({ sortByPrice, sortOrder }) => {
   const [location, setLocation] = useState("");
   const [pickDate, setPickDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
@@ -68,6 +68,15 @@ const CarSearchForm = () => {
             Search
           </button>
         </form>
+        <div className="w-full p-4 text-center">
+          <button
+            onClick={sortByPrice}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Sort by Price ({sortOrder === "asc" ? "Low to High" : "High to Low"}
+            )
+          </button>
+        </div>
       </div>
     </div>
   );
