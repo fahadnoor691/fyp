@@ -333,3 +333,81 @@ exports.changePassword = async (req, res, next) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+exports.sendOwnerEmail = (req, res, next) => {
+  const email = req.body.email;
+  console.log(email);
+  Owner.findOne({ email: email })
+    .then((user) => {
+      if (!user) {
+        console.log(user);
+        return res.status(404).json({ error: "Email not found." });
+      }
+      let url = `http://localhost:3001/update_owner_password/${user._id}`;
+      const mailOptions = {
+        from: email,
+        to: email,
+        subject: "Reset Password Request",
+        html: `<b>click on this link</b><br/> ${url}`,
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.error("Error sending email:", error);
+          res.status(500).send("Error sending email");
+        } else {
+          console.log("Email sent: " + info.response);
+          res.status(200).send("Email sent successfully");
+        }
+      });
+    })
+    .catch((err) => {
+      console.log("Internal Server Error");
+      res.status(500).send("Internal Server Error");
+    });
+};
+
+exports.getAllUsers = async (req, res, next) => {
+  try {
+    const users = await User.find();
+    res.status(200).json({
+      success: true,
+      data: users,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: "Server Error",
+    });
+  }
+};
+
+exports.changeOwnerPassword = async (req, res, next) => {
+  try {
+    const { password } = req.body;
+    const userId = req.params.userId;
+
+    if (!password || !userId) {
+      return res
+        .status(400)
+        .json({ error: "Password and userId are required" });
+    }
+
+    const user = await Owner.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    user.password = hashedPassword;
+
+    await user.save();
+
+    res.status(200).json({ message: "Password changed successfully" });
+  } catch (error) {
+    console.error("Error changing password:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};

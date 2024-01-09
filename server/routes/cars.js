@@ -16,6 +16,8 @@ router.post("/search", carsController.filter);
 
 router.get("/posts", carsController.getPosts);
 
+router.get("/latest", carsController.getCarsListing);
+
 //router.get("/car-description", carsController.getCarDescription);
 
 router.get("/car-description/:carId", carsController.getCarDescriptionById);

@@ -13,20 +13,20 @@ const userSchema = new Schema({
   },
   city: {
     type: String,
-    required: true,
+    required: false,
   },
   phone_number: {
     type: Number,
-    required: true,
+    required: false,
   },
 
   email: {
     type: String,
-    required: true,
+    required: false,
   },
   password: {
     type: String,
-    required: true,
+    required: false,
   },
 
   booking: {

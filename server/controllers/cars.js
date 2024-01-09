@@ -6,6 +6,15 @@ exports.getCarDescription = (req, res, next) => {
     isAuthenticated: req.session.isLoggedIn,
   });
 };
+exports.getLatestCars = async (req, res) => {
+  try {
+    const latestCars = await Cars.find().sort({ timestamp: -1 }).limit(3);
+    res.json(latestCars);
+  } catch (error) {
+    console.error("Error fetching latest cars: ", error);
+    res.status(500).json({ error: "Server error" });
+  }
+};
 
 exports.getCarDescriptionById = (req, res, next) => {
   const carId = req.params.carId;
