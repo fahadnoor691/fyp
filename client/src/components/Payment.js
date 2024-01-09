@@ -26,9 +26,17 @@ const PaymentForm = () => {
     setName(e.target.value);
   };
 
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = (e) => {
-    toast.success("Your car has been successfully booked!");
-    navigate("/home");
+    e.preventDefault();
+    setLoading(true);
+
+    setTimeout(() => {
+      toast.success("Your car has been successfully booked!");
+      navigate("/home");
+      setLoading(false);
+    }, 5500);
   };
 
   setTimeout(() => {}, 1500);
@@ -75,7 +83,9 @@ const PaymentForm = () => {
         required
       />
 
-      <button className="btn btn-warning btn-block">Pay Now</button>
+      <button className="btn btn-warning btn-block" disabled={loading}>
+        {loading ? "Processing..." : "Pay Now"}
+      </button>
     </form>
   );
 };

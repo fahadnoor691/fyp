@@ -11,7 +11,7 @@ const Card = () => {
 
   const fetchBookings = () => {
     axios
-      .get(`http://localhost:8080/get-bookings/${user._id}`)
+      .get(`http://localhost:8080/owner/get-bookings/${user._id}`)
       .then((res) => {
         setbooking(res.data.bookings);
         console.log("User:  ", res.data);
@@ -152,12 +152,12 @@ const Card = () => {
                     >
                       Price
                     </th>
-                    {/* <th
+                    <th
                       scope="col"
                       className="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase"
                     >
                       Action
-                    </th> */}
+                    </th>
                   </tr>
                 </thead>
 
@@ -186,18 +186,8 @@ const Card = () => {
                         {car.price}
                       </td>
 
-                      {/* <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+                      <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                         <div className="flex gap-2">
-                          <button
-                            className="btn btn-outline btn-info"
-                            onClick={() => {
-                              setPrice(car.carPrice);
-                              openModal(car);
-                              document.getElementById("my_modal_5").showModal();
-                            }}
-                          >
-                            Edit
-                          </button>
                           <button
                             className="btn btn-outline btn-error"
                             onClick={() => {
@@ -207,7 +197,7 @@ const Card = () => {
                             Delete
                           </button>
                         </div>
-                      </td> */}
+                      </td>
                     </tr>
                   ))}
                 </tbody>

@@ -19,8 +19,9 @@ exports.bookCar = async (req, res) => {
       carSeats,
       carTransmission,
       carPrice,
+      ownerId,
     } = req.body;
-    console.log(carPrice);
+    console.log(ownerId);
     // Validate if userId and carId are provided
     if (!userId || !carId) {
       return res.status(400).json({ error: "User ID and Car ID are required" });
@@ -50,6 +51,7 @@ exports.bookCar = async (req, res) => {
       carTransmission: carTransmission,
       carSeats: carSeats,
       carPrice: carPrice,
+      ownerId: ownerId,
     });
 
     // Save the new booking
@@ -83,7 +85,7 @@ exports.getBookings = (req, res) => {
 
 exports.getOwnerBookings = (req, res) => {
   const id = req.params.id;
-  Booking.find({ user: id })
+  Booking.find({ ownerId: id })
     .then((bookings) => {
       if (!bookings || bookings.length === 0) {
         return res.status(404).json({ message: "No car found" });

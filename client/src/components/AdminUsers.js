@@ -20,6 +20,21 @@ const Card = () => {
         console.log(err);
       });
   };
+  const handleDelete = (id) => {
+    axios
+      .post(`http://localhost:8080/delete-user/${id}`)
+      .then((res) => {
+        console.log("Car Deleted Successfully");
+        console.log(res.data.message); // Log the response for debugging
+        toast.success("Car Deleted Successfully");
+        // After successful deletion, update the cars list by removing the deleted car
+        setcars(cars.filter((car) => car._id !== id));
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Error in deleting car");
+      });
+  };
 
   useEffect(() => {
     fetchcarss();
@@ -73,6 +88,12 @@ const Card = () => {
                     >
                       City
                     </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                    >
+                      Action
+                    </th>
                   </tr>
                 </thead>
 
@@ -99,6 +120,14 @@ const Card = () => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 darki:text-gray-200">
                         {car.city}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 darki:text-gray-200">
+                        <button
+                          className="btn btn-error"
+                          onClick={() => handleDelete(car._id)}
+                        >
+                          Delete
+                        </button>
                       </td>
                     </tr>
                   ))}

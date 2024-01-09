@@ -90,7 +90,7 @@ exports.postDeleteCar = async (req, res, next) => {
   try {
     const carId = req.params.carId;
     console.log(carId);
-    const deletedCar = await Cars.findByIdAndRemove(carId);
+    const deletedCar = await Cars.findByIdAndDelete(carId);
     if (!deletedCar) {
       return res.status(404).json({ error: "Car not found" });
     }

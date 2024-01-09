@@ -411,3 +411,20 @@ exports.changeOwnerPassword = async (req, res, next) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+exports.DeleteUser = async (req, res, next) => {
+  try {
+    const carId = req.params.carId;
+    console.log(carId);
+    const deletedCar = await User.findByIdAndDelete(carId);
+    if (!deletedCar) {
+      return res.status(404).json({ error: "Car not found" });
+    }
+
+    console.log("DESTROYED PRODUCT");
+    return res.status(200).json({ message: "Car deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+};

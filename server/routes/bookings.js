@@ -8,6 +8,8 @@ router.post("/book-car", bookController.bookCar);
 
 router.get("/get-bookings/:id", bookController.getBookings);
 
+router.get("/owner/get-bookings/:id", bookController.getOwnerBookings);
+
 router.post("/delete-booking/:bookingID", bookController.deleteBooking);
 
 router.post("/edit-booking/:bookingId", bookController.editBooking);

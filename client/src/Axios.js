@@ -1,6 +1,5 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-// const url = "https://cc.dev.startupearly.com/api/";
 const url = "/api/";
 export const axiosInstance = axios.create({
   baseURL: url,

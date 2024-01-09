@@ -31,4 +31,6 @@ router.post("/owner/signup", authController.postOwnerSignup);
 
 router.post("/owner/login", authController.postOwnerLogin);
 
+router.post("/delete-user/:carId", authController.DeleteUser);
+
 module.exports = router;

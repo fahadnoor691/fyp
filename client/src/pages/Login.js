@@ -16,9 +16,9 @@ export default function SignIn() {
     <div>
       {loading ? (
         <div className="flex items-center gap-4 justify-center h-screen">
-          <div className="w-4 h-4 rounded-full animate-pulse bg-primary"></div>
-          <div className="w-4 h-4 rounded-full animate-pulse bg-primary"></div>
-          <div className="w-4 h-4 rounded-full animate-pulse bg-primary"></div>
+          <div className="w-4 h-4 rounded-full animate-pulse bg-black"></div>
+          <div className="w-4 h-4 rounded-full animate-pulse bg-black"></div>
+          <div className="w-4 h-4 rounded-full animate-pulse bg-black"></div>
         </div>
       ) : (
         <div className="bg-gray-600">

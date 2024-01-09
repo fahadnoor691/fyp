@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const RedirectPage = () => {
   const containerStyle = {
@@ -40,14 +40,32 @@ const RedirectPage = () => {
     window.location.href = pageUrl;
   };
 
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000); // Adjust the delay as needed
+  }, []);
+
   return (
-    <div style={containerStyle}>
-      <div style={leftStyle} onClick={() => redirectToPage("login")}>
-        Rent In
-      </div>
-      <div style={rightStyle} onClick={() => redirectToPage("owner/signup")}>
-        Rent Out
-      </div>
+    <div>
+      {loading ? (
+        <div className="flex items-center gap-4 justify-center h-screen">
+          <div className="w-4 h-4 rounded-full animate-pulse bg-black"></div>
+          <div className="w-4 h-4 rounded-full animate-pulse bg-black"></div>
+          <div className="w-4 h-4 rounded-full animate-pulse bg-black"></div>
+        </div>
+      ) : (
+        <div style={containerStyle}>
+          <div style={leftStyle} onClick={() => redirectToPage("login")}>
+            Rent In
+          </div>
+          <div style={rightStyle} onClick={() => redirectToPage("owner/login")}>
+            Rent Out
+          </div>
+        </div>
+      )}
     </div>
   );
 };

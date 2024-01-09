@@ -27,6 +27,7 @@ import ChangeOwnerPassword from "./pages/ChangeOwnerPassword";
 import UpdateOwnerPass from "./pages/UpdateOwnerPass";
 import BookingsOwner from "./pages/BookingOwner";
 import About from "./components/About";
+import AdminLogin from "./pages/AdminLogin";
 
 import Admin from "./pages/AdminPage";
 import Recommendation from "./components/Recommendation";
@@ -43,6 +44,7 @@ function App() {
             <Route path="/owner/login" element={<OwnerLogin />} />
             <Route path="/owner/signup" element={<OwnerSignUp />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/change_password" element={<ChangePassword />} />
             <Route
               path="/change_owner_password"

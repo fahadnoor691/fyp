@@ -16,7 +16,7 @@ export default function Navbar() {
           <div className="flex items-center justify-between">
             <a
               className="flex-none text-xl font-bold text-yellow-300"
-              href="#"
+              href="/owner/home"
               aria-label="Brand"
             >
               Rolling Rentals
@@ -83,7 +83,7 @@ export default function Navbar() {
               </a>
               <a
                 className="font-medium text-white/[.8] hover:text-white sm:py-6"
-                href="#"
+                href=""
               >
                 <Link to={`/owner/manage-cars`}>Manage Cars</Link>
               </a>

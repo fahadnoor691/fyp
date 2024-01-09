@@ -338,7 +338,7 @@ const AuthProvider = ({ children }) => {
     localStorage.removeItem("authTokens");
 
     // redirect the user
-    navigate("/owner/login");
+    navigate("/");
   };
 
   // extract the decoded data
