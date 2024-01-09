@@ -1,0 +1,35 @@
+.page{
+    background-color: rgb(172, 202, 199);
+    height:100vh
+}
+.recommend-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem
+  }
+
+.car-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .car-overlay:hover {
+    opacity: 1;
+  }
+  
+  .car-details {
+    color: white;
+    text-align: center;
+  }
+  h3{
+    color:white
+  }

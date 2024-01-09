@@ -82,7 +82,7 @@ export default function Navbar() {
               </a>
               <a
                 className="font-medium text-white/[.8] hover:text-white sm:py-6"
-                href="#"
+                href="/about"
               >
                 About Us
               </a>

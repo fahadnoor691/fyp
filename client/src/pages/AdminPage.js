@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import AdminStats from "./AdminStats";
 import Bookings from "../components/AdminBookings";
 import Cars from "../components/AdminCars";
+import Users from "../components/AdminUsers";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import axios from "axios";
@@ -107,7 +108,7 @@ const Network = () => {
                               type="button"
                               class="btn btn-sm border-0 text-gray-400 hover:bg-white"
                             >
-                              Owners Info
+                              Users Info
                               {filteredStudentCount > 0 && (
                                 <span className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-500 text-white">
                                   + {filteredStudentCount}
@@ -136,7 +137,9 @@ const Network = () => {
                         <TabPanel>
                           <Cars />
                         </TabPanel>
-                        <TabPanel>{/* <EnrollTable /> */}</TabPanel>
+                        <TabPanel>
+                          <Users />
+                        </TabPanel>
                       </Tabs>
                     </div>
                   </div>

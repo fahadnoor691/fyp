@@ -8,6 +8,7 @@ const Card = () => {
   let { user } = useContext(AuthContext);
   const [sortedCars, setSortedCars] = useState([]);
   const [sortOrder, setSortOrder] = useState("asc"); // Default sort order
+  const [filteredCars, setFilteredCars] = useState([]);
 
   useEffect(() => {
     axios
@@ -15,6 +16,7 @@ const Card = () => {
       .then((res) => {
         setCars(res.data.cars);
         setSortedCars(res.data.cars);
+        setFilteredCars(res.data.cars);
         console.log("User:  ", user);
       })
       .catch((err) => {
@@ -35,12 +37,25 @@ const Card = () => {
     setSortOrder(sortOrder === "asc" ? "desc" : "asc"); // Toggle sort order
   };
 
+  const sortedAndFilteredCars = [...filteredCars].sort((a, b) => {
+    if (sortOrder === "asc") {
+      return a.price - b.price;
+    } else {
+      return b.price - a.price;
+    }
+  });
+
   return (
     <div>
-      <Filter sortByPrice={sortByPrice} sortOrder={sortOrder} />
+      <Filter
+        sortByPrice={sortByPrice}
+        sortOrder={sortOrder}
+        cars={cars}
+        setFilteredCars={setFilteredCars}
+      />
 
       <div className="flex flex-wrap justify-center items-stretch">
-        {sortedCars.map((car, index) => (
+        {sortedAndFilteredCars.map((car, index) => (
           <div
             key={index}
             className="w-full sm:w-1/2 lg:w-1/3 p-4 flex justify-center items-stretch"

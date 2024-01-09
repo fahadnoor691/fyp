@@ -78,7 +78,7 @@ export default function SignIn() {
                       </label>
                       <a
                         className="text-sm text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                        href="/change_password"
+                        href="/change_owner_password"
                       >
                         Forgot password?
                       </a>
